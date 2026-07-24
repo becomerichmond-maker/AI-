@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080b1d" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <title>AI 超市｜首页原型</title>
+  <style>
+    :root {
+      --ink: #f7f8ff;
+      --muted: #a5abc3;
+      --dim: #6c7391;
+      --line: rgba(255,255,255,.12);
+      --panel: rgba(255,255,255,.065);
+      --panel-strong: rgba(255,255,255,.11);
+      --navy: #080b1d;
+      --purple: #8d6cff;
+      --purple-2: #5b3ded;
+      --cyan: #39d9ce;
+      --green: #9cf3b1;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 74% 8%, rgba(102,73,255,.22), transparent 28rem),
+        radial-gradient(circle at 10% 18%, rgba(57,217,206,.10), transparent 24rem),
+        var(--navy);
+      font-family: "Noto Sans HK", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      letter-spacing: -.02em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1200px, calc(100% - 64px)); margin: 0 auto; }
+
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 20px; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 11px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      box-shadow: 0 8px 26px rgba(108, 89, 255, .42);
+      font-size: 17px;
+    }
+    nav { display: flex; gap: 30px; color: var(--muted); font-size: 14px; }
+    nav a:first-child { color: var(--ink); }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .login { color: var(--muted); font-size: 14px; padding: 11px 12px; }
+    .btn {
+      border: 0; cursor: pointer; color: #fff; font: inherit; font-weight: 700;
+      padding: 12px 18px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-2));
+      box-shadow: 0 10px 30px rgba(111, 77, 255, .28);
+    }
+    .btn.secondary { background: rgba(255,255,255,.09); border: 1px solid var(--line); box-shadow: none; }
+
+    .hero { min-height: 520px; display: grid; grid-template-columns: 1.12fr .88fr; gap: 70px; align-items: center; padding: 72px 0 58px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: #b7b1ff; font-size: 13px; font-weight: 700; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 5px rgba(57,217,206,.12); }
+    h1 { max-width: 690px; margin: 18px 0 18px; font-size: clamp(48px, 6vw, 78px); line-height: .99; letter-spacing: -.065em; }
+    h1 span { color: var(--cyan); }
+    .hero-copy { max-width: 570px; color: var(--muted); font-size: 18px; line-height: 1.7; }
+    .search {
+      max-width: 610px; height: 68px; margin-top: 30px; padding: 8px 9px 8px 20px;
+      display: flex; align-items: center; gap: 13px; border: 1px solid rgba(141,108,255,.50);
+      border-radius: 19px; background: rgba(18, 20, 49, .88); box-shadow: 0 16px 45px rgba(0,0,0,.2), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .search-icon { color: var(--cyan); font-size: 21px; }
+    .search-text { flex: 1; min-width: 0; color: #d5d7e6; font: inherit; font-size: 15px; border: 0; outline: 0; background: transparent; }
+    .search-text::placeholder { color: #8d93ad; }
+    .search .btn { height: 50px; padding: 0 23px; border-radius: 14px; }
+    .quick { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; color: var(--dim); font-size: 12px; }
+    .quick span { border: 1px solid rgba(255,255,255,.09); border-radius: 99px; padding: 7px 10px; }
+
+    .hero-card { position: relative; min-height: 365px; border: 1px solid var(--line); border-radius: 30px; padding: 27px; overflow: hidden; background: linear-gradient(145deg, rgba(34, 36, 82, .90), rgba(17, 18, 45, .75)); box-shadow: 0 25px 80px rgba(0,0,0,.24); }
+    .hero-card::before { content: ""; position: absolute; width: 250px; height: 250px; right: -80px; top: -90px; border-radius: 50%; background: rgba(141,108,255,.40); filter: blur(5px); }
+    .mini-label { position: relative; color: var(--muted); font-size: 12px; }
+    .prompt { position: relative; margin-top: 28px; padding: 18px; border: 1px solid rgba(255,255,255,.11); border-radius: 18px; background: rgba(255,255,255,.06); color: #fff; line-height: 1.55; }
+    .prompt b { color: var(--cyan); }
+    .result { position: relative; display: flex; align-items: center; gap: 12px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .avatar { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px; background: linear-gradient(135deg, #ffafbd, #7a71ff); font-size: 20px; }
+    .result strong { display: block; font-size: 14px; }
+    .result small { color: var(--muted); font-size: 12px; }
+    .score { margin-left: auto; color: #ffd76b; font-size: 13px; }
+    .card-action { position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 23px; }
+    .price { font-size: 24px; font-weight: 800; }
+    .price small { color: var(--muted); font-size: 12px; font-weight: 500; }
+
+    section { padding: 54px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 24px; }
+    h2 { margin: 0; font-size: 30px; letter-spacing: -.045em; }
+    .section-head p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .more { color: #b7b1ff; font-size: 13px; }
+
+    .chips { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .chip { min-height: 88px; display: flex; flex-direction: column; justify-content: space-between; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.045); transition: .2s ease; }
+    .chip:hover { transform: translateY(-3px); background: var(--panel-strong); border-color: rgba(141,108,255,.55); }
+    .chip-icon { font-size: 24px; }
+    .chip strong { font-size: 14px; }
+    .chip small { color: var(--dim); font-size: 11px; }
+
+    .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .service { min-height: 275px; display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.052); }
+    .service-top { display: flex; justify-content: space-between; align-items: start; }
+    .service-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; font-size: 24px; }
+    .violet { background: rgba(141,108,255,.18); }
+    .aqua { background: rgba(57,217,206,.16); }
+    .orange { background: rgba(255,169,92,.17); }
+    .tag { padding: 6px 8px; border-radius: 8px; background: rgba(156,243,177,.12); color: var(--green); font-size: 11px; }
+    .service h3 { margin: 22px 0 8px; font-size: 17px; }
+    .service p { min-height: 42px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .service-foot { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 20px; }
+    .meta { color: var(--dim); font-size: 12px; }
+    .service .btn { padding: 9px 13px; border-radius: 11px; font-size: 12px; }
+
+    .enterprise { display: grid; grid-template-columns: 1.2fr .8fr; gap: 35px; align-items: center; padding: 32px; border: 1px solid rgba(57,217,206,.25); border-radius: 26px; background: linear-gradient(110deg, rgba(57,217,206,.11), rgba(141,108,255,.13)); }
+    .enterprise h2 { max-width: 540px; }
+    .enterprise p { max-width: 540px; margin: 12px 0 0; color: var(--muted); line-height: 1.6; font-size: 14px; }
+    .enterprise-right { display: flex; justify-content: end; gap: 10px; }
+    .chip.active { transform: translateY(-3px); background: var(--panel-strong); border-color: rgba(141,108,255,.65); box-shadow: 0 10px 25px rgba(75,54,176,.16); }
+    .service[hidden] { display: none; }
+    .empty-state { grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius); background: rgba(255,255,255,.025); }
+    .modal { position: fixed; inset: 0; z-index: 10; display: none; place-items: center; padding: 24px; background: rgba(3,5,16,.72); backdrop-filter: blur(12px); }
+    .modal.is-open { display: grid; }
+    .modal-card { width: min(520px, 100%); padding: 28px; border: 1px solid rgba(141,108,255,.4); border-radius: 24px; background: linear-gradient(145deg, #202451, #11132d); box-shadow: 0 28px 80px rgba(0,0,0,.42); }
+    .modal-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+    .modal-head h3 { margin: 0; font-size: 22px; }
+    .modal-close { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: rgba(255,255,255,.06); cursor: pointer; }
+    .modal-copy { margin: 16px 0 22px; color: var(--muted); line-height: 1.7; font-size: 14px; }
+    .modal-list { display: grid; gap: 10px; margin: 0 0 24px; padding: 0; list-style: none; color: #e2e4f3; font-size: 13px; }
+    .modal-list li::before { content: "✓"; display: inline-block; width: 24px; color: var(--cyan); font-weight: 800; }
+    .toast { position: fixed; left: 50%; bottom: 28px; z-index: 20; transform: translate(-50%, 20px); padding: 12px 16px; border: 1px solid rgba(57,217,206,.35); border-radius: 12px; color: var(--ink); background: #151a35; box-shadow: 0 16px 35px rgba(0,0,0,.3); opacity: 0; pointer-events: none; transition: .25s ease; font-size: 13px; }
+    .toast.is-visible { transform: translate(-50%, 0); opacity: 1; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+    .stat { padding: 17px; border-radius: 16px; background: rgba(255,255,255,.045); }
+    .stat strong { display: block; font-size: 23px; }
+    .stat span { color: var(--muted); font-size: 11px; }
+    footer { padding: 45px 0 60px; color: var(--dim); font-size: 12px; display: flex; justify-content: space-between; }
+    footer b { color: var(--muted); }
+
+    @media (max-width: 860px) {
+      .shell { width: min(100% - 36px, 680px); }
+      nav { display: none; }
+      .hero, .enterprise { grid-template-columns: 1fr; gap: 28px; }
+      .hero { padding-top: 54px; }
+      .chips { grid-template-columns: repeat(2, 1fr); }
+      .services { grid-template-columns: 1fr; }
+      .enterprise-right { justify-content: start; }
+      .section-head { align-items: start; gap: 12px; }
+    }
+    @media (max-width: 520px) {
+      .header-actions .btn { display: none; }
+      h1 { font-size: 48px; }
+      .search { height: auto; flex-wrap: wrap; padding: 10px; }
+      .search-text { min-width: 170px; }
+      .search .btn { width: 100%; }
+      .stats { grid-template-columns: 1fr; }
+      footer { display: block; line-height: 2; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#"><span class="brand-mark">✦</span>AI 超市</a>
+      <nav>
+        <a href="#services">发现服务</a>
+        <a href="#categories">应用场景</a>
+        <a href="#enterprise">企业采购</a>
+        <a href="#">服务商入驻</a>
+      </nav>
+      <div class="header-actions"><a class="login" href="#">登录</a><button class="btn">免费开始</button></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">一站式 AI 服务交易平台</div>
+          <h1>把想法变成<br><span>可交付的结果</span></h1>
+          <p class="hero-copy">从内容生产到业务自动化，找到经过验证的 AI 服务和解决方案。描述你的需求，AI 超市帮你匹配合适的能力。</p>
+          <div class="search"><span class="search-icon">⌕</span><input class="search-text" aria-label="描述你的 AI 需求" placeholder="例如：帮我做一套短视频矩阵" /><button class="btn" type="button">开始匹配</button></div>
+          <div class="quick"><span>短视频获客</span><span>企业知识库</span><span>数据分析报告</span><span>AI 客服</span></div>
+        </div>
+        <div class="hero-card">
+          <div class="mini-label">AI 正在为你推荐</div>
+          <div class="prompt">“我想让团队每周自动生成一份<br><b>销售复盘报告</b>，需要接入飞书。”</div>
+          <div class="result"><div class="avatar">▦</div><div><strong>销售数据自动驾驶舱</strong><small>仪表盘搭建 · 3 天交付</small></div><div class="score">★ 4.9</div></div>
+          <div class="result"><div class="avatar" style="background:linear-gradient(135deg,#59e7c4,#3d70ff)">◌</div><div><strong>企业知识库助手</strong><small>工作流配置 · 1 天上线</small></div><div class="score">★ 4.8</div></div>
+          <div class="card-action"><div class="price">¥ 1,999 <small>起</small></div><button class="btn secondary">查看方案 →</button></div>
+        </div>
+      </section>
+
+      <section id="categories">
+        <div class="section-head"><div><h2>按场景找到 AI</h2><p>不需要懂模型，只需要说清楚你要完成什么。</p></div><a class="more" href="#">查看全部场景 →</a></div>
+        <div class="chips">
+          <a class="chip" data-filter="营销获客" href="#services"><span class="chip-icon">◈</span><span><strong>营销获客</strong><br><small>让增长更快</small></span></a>
+          <a class="chip" data-filter="内容生产" href="#services"><span class="chip-icon">✎</span><span><strong>内容生产</strong><br><small>让创作更轻</small></span></a>
+          <a class="chip" data-filter="办公提效" href="#services"><span class="chip-icon">⌘</span><span><strong>办公提效</strong><br><small>让协作更顺</small></span></a>
+          <a class="chip" data-filter="数据分析" href="#services"><span class="chip-icon">⌁</span><span><strong>数据分析</strong><br><small>让决策更准</small></span></a>
+          <a class="chip" data-filter="开发工具" href="#services"><span class="chip-icon">◇</span><span><strong>开发工具</strong><br><small>让交付更快</small></span></a>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="section-head"><div><h2>本周精选服务</h2><p aria-live="polite">经过真实项目验证，拿来就能用。</p></div><a class="more" href="#services">浏览更多服务 →</a></div>
+        <div class="services">
+          <article class="service" data-category="内容生产 营销获客" data-keywords="短视频 脚本 成片 品牌 电商 内容"><div class="service-top"><div class="service-icon violet">▧</div><span class="tag">可立即交付</span></div><h3>AI 短视频内容工厂</h3><p>从选题、脚本到批量成片，适合品牌和电商团队搭建内容流水线。</p><div class="service-foot"><span class="meta">★ 4.9 · 已交付 128 次</span><button class="btn service-detail" type="button">查看详情</button></div></article>
+          <article class="service" data-category="办公提效" data-keywords="知识库 文档 飞书 办公 助手 工作流"><div class="service-top"><div class="service-icon aqua">◎</div><span class="tag">企业热门</span></div><h3>企业知识库助手</h3><p>连接内部文档和业务系统，让员工用一句话找到答案并执行任务。</p><div class="service-foot"><span class="meta">★ 4.8 · 已服务 76 家</span><button class="btn service-detail" type="button">查看详情</button></div></article>
+          <article class="service" data-category="数据分析 办公提效" data-keywords="销售 数据 报告 周报 预测 驾驶舱"><div class="service-top"><div class="service-icon orange">⌁</div><span class="tag">高复购</span></div><h3>销售数据自动驾驶舱</h3><p>自动整理销售数据，生成周报、预测和行动建议，减少重复汇报。</p><div class="service-foot"><span class="meta">★ 5.0 · 已节省 2,400 小时</span><button class="btn service-detail" type="button">查看详情</button></div></article>
+        </div>
+      </section>
+
+      <section id="enterprise">
+        <div class="enterprise"><div><h2>企业级 AI，不止是买一个工具</h2><p>从需求梳理、方案选型到部署和持续运营，获得完整的 AI 落地服务。支持私有化部署、API 接入和按量计费。</p><div class="stats"><div class="stat"><strong>1,200+</strong><span>可采购 AI 服务</span></div><div class="stat"><strong>98%</strong><span>项目按期交付</span></div><div class="stat"><strong>7×12</strong><span>企业服务支持</span></div></div></div><div class="enterprise-right"><button class="btn consultant-btn" type="button">预约企业顾问</button><button class="btn secondary solution-btn" type="button">查看解决方案</button></div></div>
+      </section>
+    </main>
+
+    <footer><span>© 2026 <b>AI 超市</b> · 让 AI 真正进入业务</span><span>服务商入驻　帮助中心　隐私政策</span></footer>
+  </div>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-head"><h3 id="modal-title">服务详情</h3><button class="modal-close" type="button" aria-label="关闭">×</button></div>
+      <p class="modal-copy" id="modal-copy"></p>
+      <ul class="modal-list"><li>需求梳理与方案确认</li><li>交付验收与使用培训</li><li>上线后的持续支持</li></ul>
+      <button class="btn modal-cta" type="button">提交需求，获取报价</button>
+    </div>
+  </div>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+  </script>
+  <script>
+    (() => {
+      const input = document.querySelector('.search-text');
+      const searchButton = document.querySelector('.search .btn');
+      const serviceSection = document.querySelector('#services');
+      const serviceGrid = document.querySelector('.services');
+      const serviceStatus = document.querySelector('#services .section-head p');
+      const services = [...document.querySelectorAll('.service')];
+      const chips = [...document.querySelectorAll('.chip')];
+      const quickTags = [...document.querySelectorAll('.quick span')];
+      const modal = document.querySelector('.modal');
+      const modalTitle = document.querySelector('#modal-title');
+      const modalCopy = document.querySelector('#modal-copy');
+      const toast = document.querySelector('.toast');
+      let toastTimer;
+
+      const showToast = (message) => {
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2600);
+      };
+
+      const setActiveChip = (value) => {
+        chips.forEach((chip) => chip.classList.toggle('active', chip.dataset.filter === value));
+      };
+
+      const runSearch = (rawQuery = '') => {
+        const query = rawQuery.trim().toLowerCase();
+        let visibleCount = 0;
+        services.forEach((service) => {
+          const haystack = [service.dataset.category, service.dataset.keywords, service.querySelector('h3')?.textContent].join(' ').toLowerCase();
+          const visible = !query || haystack.includes(query);
+          service.hidden = !visible;
+          if (visible) visibleCount += 1;
+        });
+        serviceGrid.querySelector('.empty-state')?.remove();
+        if (!visibleCount) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-state';
+          empty.textContent = '暂时没有完全匹配的服务，试试“内容”“办公”或“数据”。';
+          serviceGrid.append(empty);
+        }
+        serviceStatus.textContent = query ? `正在展示与“${rawQuery.trim()}”相关的服务 · ${visibleCount} 个结果` : '经过真实项目验证，拿来就能用。';
+        serviceSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      searchButton.addEventListener('click', () => runSearch(input.value));
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') runSearch(input.value);
+      });
+      quickTags.forEach((tag) => tag.addEventListener('click', () => {
+        input.value = tag.textContent;
+        runSearch(input.value);
+      }));
+      chips.forEach((chip) => chip.addEventListener('click', (event) => {
+        event.preventDefault();
+        const value = chip.dataset.filter;
+        input.value = value;
+        setActiveChip(value);
+        runSearch(value);
+      }));
+      document.querySelector('.more').addEventListener('click', (event) => {
+        event.preventDefault();
+        input.value = '';
+        setActiveChip('');
+        runSearch('');
+      });
+      document.querySelector('.header-actions .btn').addEventListener('click', () => {
+        input.focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      const closeModal = () => modal.classList.remove('is-open');
+      document.querySelector('.modal-close').addEventListener('click', closeModal);
+      modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+      document.querySelectorAll('.service-detail').forEach((button) => button.addEventListener('click', () => {
+        const card = button.closest('.service');
+        const title = card.querySelector('h3').textContent;
+        modalTitle.textContent = title;
+        modalCopy.textContent = card.querySelector('p').textContent + ' 我们会根据你的业务规模和交付目标，匹配合适的服务商与实施方案。';
+        modal.classList.add('is-open');
+      }));
+      document.querySelector('.modal-cta').addEventListener('click', () => {
+        closeModal();
+        showToast('需求已记录，服务顾问会尽快与你联系');
+      });
+      document.querySelector('.consultant-btn').addEventListener('click', () => showToast('企业顾问预约已提交，我们会在 1 个工作日内联系你'));
+      document.querySelector('.solution-btn').addEventListener('click', () => {
+        input.value = '企业解决方案';
+        runSearch('企业');
+      });
+    })();
+  </script>
+</body>
+</html>
