@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 超市｜子页面</title>
+  <style>
+    :root { color-scheme: dark; --bg: #07101f; --panel: #0d1a2c; --line: rgba(167, 191, 224, .16); --text: #f4f7fb; --muted: #9aaac0; --blue: #76a7ff; --violet: #9a86ff; --aqua: #67dfc0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font-family: Inter, "Microsoft YaHei", sans-serif; color: var(--text); background: radial-gradient(circle at 85% 0%, rgba(79, 119, 255, .18), transparent 35%), var(--bg); }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); }
+    .brand { font-size: 20px; font-weight: 800; letter-spacing: -.04em; white-space: nowrap; }
+    .brand-mark { display: inline-grid; place-items: center; width: 28px; height: 28px; margin-right: 8px; border-radius: 9px; color: #fff; background: linear-gradient(135deg, var(--violet), var(--blue)); }
+    nav { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
+    nav a:hover, .back:hover { color: var(--text); }
+    .top-link { color: var(--blue); font-size: 14px; }
+    main { padding: 86px 0 110px; }
+    .eyebrow { color: var(--aqua); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 780px; margin: 14px 0 20px; font-size: clamp(38px, 6vw, 72px); line-height: 1.06; letter-spacing: -.065em; }
+    h1 span { color: var(--blue); }
+    .lead { max-width: 680px; color: var(--muted); font-size: 18px; line-height: 1.8; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+    .card { padding: 24px; min-height: 180px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg, rgba(17, 33, 55, .94), rgba(10, 20, 35, .86)); box-shadow: 0 20px 55px rgba(0,0,0,.16); }
+    .card h2, .card h3 { margin: 0 0 12px; font-size: 21px; }
+    .card p, .card li { color: var(--muted); line-height: 1.7; }
+    .card ul { padding-left: 20px; margin: 14px 0 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border: 1px solid transparent; border-radius: 12px; color: #08111e; background: linear-gradient(135deg, #9abaff, #6fe0c3); font-weight: 800; cursor: pointer; }
+    .btn.secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,.04); }
+    .form-card { max-width: 580px; margin-top: 38px; padding: 28px; border: 1px solid var(--line); border-radius: 22px; background: rgba(13, 26, 44, .9); }
+    label { display: block; margin: 16px 0 8px; color: var(--muted); font-size: 14px; }
+    input, textarea { width: 100%; padding: 13px 14px; color: var(--text); border: 1px solid var(--line); border-radius: 10px; outline: none; background: #091626; font: inherit; }
+    input:focus, textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(118,167,255,.12); }
+    textarea { min-height: 112px; resize: vertical; }
+    .notice { margin-top: 18px; color: var(--aqua); font-size: 14px; }
+    footer { display: flex; justify-content: space-between; gap: 16px; padding: 22px 0 30px; color: var(--muted); border-top: 1px solid var(--line); font-size: 13px; }
+    @media (max-width: 760px) { .shell { width: min(100% - 28px, 620px); } header { align-items: flex-start; padding: 18px 0; } nav { display: none; } main { padding: 58px 0 76px; } .grid { grid-template-columns: 1fr; } footer { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="index.html"><span class="brand-mark">✦</span>AI 超市</a>
+      <nav><a href="index.html#services">发现服务</a><a href="index.html#categories">应用场景</a><a href="subpage.html?type=enterprise">企业采购</a><a href="subpage.html?type=provider">服务商入驻</a></nav>
+      <a class="top-link" href="index.html">返回首页</a>
+    </header>
+
+    <main>
+      <div class="eyebrow" id="eyebrow">AI SERVICE MARKETPLACE</div>
+      <h1 id="title">正在加载<span>页面</span>...</h1>
+      <p class="lead" id="lead"></p>
+      <section class="grid" id="cards"></section>
+      <div class="actions" id="actions"></div>
+      <div id="form-slot"></div>
+    </main>
+
+    <footer><span>© 2026 <b>AI 超市</b> · 让 AI 真正进入业务</span><span>静态演示页面，可继续接入真实接口</span></footer>
+  </div>
+
+  <script>
+    const pages = {
+      solutions: {
+        eyebrow: 'SOLUTIONS', title: '按业务目标选择<span>解决方案</span>', lead: '从内容生产、办公提效到数据分析，先选择业务方向，再进入对应的服务详情页。', cards: [['内容增长', '短视频脚本、批量成片和营销素材，帮助品牌持续获客。'], ['办公提效', '企业知识库、流程自动化和智能助手，让团队少做重复工作。'], ['经营分析', '销售驾驶舱、周报和预测模型，让数据直接支持行动。']], actions: [['查看短视频服务', 'subpage.html?type=video-factory'], ['咨询企业方案', 'subpage.html?type=enterprise'], ['回到首页', 'index.html']]
+      },
+      enterprise: {
+        eyebrow: 'FOR BUSINESS', title: '企业级 AI，<span>从选型到落地</span>', lead: '适合需要私有化部署、API 接入、权限管理和持续运营支持的企业团队。', cards: [['需求梳理', '明确业务目标、数据条件和交付边界，形成可执行的项目清单。'], ['方案实施', '匹配服务商，完成系统接入、流程配置和上线验收。'], ['持续运营', '根据使用数据持续优化提示词、工作流和服务效果。']], actions: [['预约企业顾问', 'subpage.html?type=enterprise#consult'], ['查看解决方案', 'subpage.html?type=solutions'], ['返回首页', 'index.html']], consult: true
+      },
+      provider: {
+        eyebrow: 'FOR PROVIDERS', title: '把你的 AI 能力<span>卖给更多企业</span>', lead: '提交服务信息后，我们会根据交付能力、案例和适配行业进行审核。', cards: [['发布服务', '清晰填写适用场景、交付周期、价格区间和交付物。'], ['获得线索', '让有明确需求的企业找到你，减少低质量沟通。'], ['共同交付', '支持项目协作、验收和长期运营服务。']], actions: [['填写入驻申请', '#provider-form'], ['返回首页', 'index.html']], form: 'provider'
+      },
+      login: {
+        eyebrow: 'WELCOME BACK', title: '登录<span>AI 超市</span>', lead: '登录后可以保存服务、查看咨询记录，并管理你的项目。当前页面是前端演示，接入后端接口后即可启用真实登录。', cards: [], actions: [['返回首页', 'index.html']], form: 'login'
+      },
+      start: {
+        eyebrow: 'GET STARTED', title: '从一个需求开始<span>使用 AI</span>', lead: '你可以先浏览服务，也可以直接提交企业需求，让顾问帮你匹配合适的方案。', cards: [['个人与小团队', '先查看标准化 AI 服务，快速验证一个具体场景。'], ['企业采购', '需要系统接入、权限和部署支持时，选择企业解决方案。'], ['服务商入驻', '如果你有成熟的 AI 交付能力，可以申请成为服务商。']], actions: [['浏览服务', 'index.html#services'], ['企业采购', 'subpage.html?type=enterprise'], ['服务商入驻', 'subpage.html?type=provider']]
+      },
+      'video-factory': {
+        eyebrow: 'SERVICE DETAIL', title: 'AI 短视频<span>内容工厂</span>', lead: '从选题、脚本到批量成片，适合品牌和电商团队搭建内容流水线。', cards: [['适用场景', '短视频矩阵、电商种草、品牌内容、活动宣传。'], ['交付内容', '选题策略、脚本模板、批量生产流程和成片示例。'], ['建议周期', '标准方案约 3—7 天完成首批交付，具体以需求为准。']], actions: [['提交需求', 'subpage.html?type=enterprise#consult'], ['继续浏览服务', 'index.html#services']]
+      },
+      'knowledge-assistant': {
+        eyebrow: 'SERVICE DETAIL', title: '企业<span>知识库助手</span>', lead: '连接内部文档和业务系统，让员工用一句话找到答案并执行任务。', cards: [['适用场景', '制度问答、销售资料、客户支持、入职培训。'], ['交付内容', '知识库整理、权限设计、问答流程和使用培训。'], ['建议周期', '基础版本可在 1—3 天内完成配置，具体以资料量为准。']], actions: [['提交需求', 'subpage.html?type=enterprise#consult'], ['继续浏览服务', 'index.html#services']]
+      },
+      'sales-dashboard': {
+        eyebrow: 'SERVICE DETAIL', title: '销售数据<span>自动驾驶舱</span>', lead: '自动整理销售数据，生成周报、预测和行动建议，减少重复汇报。', cards: [['适用场景', '销售周报、业绩追踪、漏斗分析和经营复盘。'], ['交付内容', '数据字段梳理、指标看板、自动报告和行动提醒。'], ['建议周期', '通常 3 天完成首版看板，接入数据源后持续优化。']], actions: [['提交需求', 'subpage.html?type=enterprise#consult'], ['继续浏览服务', 'index.html#services']]
+      }
+    };
+
+    const type = new URLSearchParams(window.location.search).get('type') || 'solutions';
+    const page = pages[type] || pages.solutions;
+    document.title = `AI 超市｜${type === 'solutions' ? '解决方案' : '服务页面'}`;
+    document.querySelector('#eyebrow').textContent = page.eyebrow;
+    document.querySelector('#title').innerHTML = page.title;
+    document.querySelector('#lead').textContent = page.lead;
+    document.querySelector('#cards').innerHTML = page.cards.map(([title, copy]) => `<article class="card"><h2>${title}</h2><p>${copy}</p></article>`).join('');
+    document.querySelector('#actions').innerHTML = page.actions.map(([label, href], index) => `<a class="btn${index ? ' secondary' : ''}" href="${href}">${label}</a>`).join('');
+
+    if (page.form) {
+      const provider = page.form === 'provider';
+      document.querySelector('#form-slot').innerHTML = `<form class="form-card" id="${provider ? 'provider-form' : 'login-form'}"><h2>${provider ? '服务商入驻申请' : '登录演示'}</h2><label>${provider ? '联系人' : '手机号或邮箱'}</label><input required placeholder="请输入${provider ? '联系人姓名' : '手机号或邮箱'}" /><label>${provider ? '服务方向' : '密码'}</label><input required type="${provider ? 'text' : 'password'}" placeholder="请输入${provider ? '例如：短视频、知识库、数据分析' : '请输入密码'}" />${provider ? '<label>项目简介</label><textarea required placeholder="介绍你的 AI 服务、案例和交付能力"></textarea>' : ''}<div class="actions"><button class="btn" type="submit">${provider ? '提交申请' : '登录'}</button></div><p class="notice" hidden></p></form>`;
+      const form = document.querySelector('form');
+      const notice = form.querySelector('.notice');
+      form.addEventListener('submit', (event) => { event.preventDefault(); notice.hidden = false; notice.textContent = provider ? '申请已记录（演示），接入后端接口后即可进入审核流程。' : '登录接口待接入，当前仅展示页面跳转效果。'; });
+    }
+
+    if (page.consult && window.location.hash === '#consult') document.querySelector('#actions').scrollIntoView({ behavior: 'smooth' });
+  </script>
+</body>
+</html>
