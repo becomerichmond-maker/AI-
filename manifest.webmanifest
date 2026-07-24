@@ -1,0 +1,10 @@
+{
+  "name": "AI 超市",
+  "short_name": "AI 超市",
+  "lang": "zh-CN",
+  "start_url": "ai-supermarket-homepage.html",
+  "display": "standalone",
+  "background_color": "#080b1d",
+  "theme_color": "#080b1d",
+  "description": "一站式 AI 服务交易平台"
+}
