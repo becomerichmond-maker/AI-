@@ -172,14 +172,14 @@
 <body>
   <div class="shell">
     <header>
-      <a class="brand" href="#"><span class="brand-mark">✦</span>AI 超市</a>
+      <a class="brand" href="index.html"><span class="brand-mark">✦</span>AI 超市</a>
       <nav>
         <a href="#services">发现服务</a>
         <a href="#categories">应用场景</a>
-        <a href="#enterprise">企业采购</a>
-        <a href="#">服务商入驻</a>
+        <a href="subpage.html?type=enterprise">企业采购</a>
+        <a href="subpage.html?type=provider">服务商入驻</a>
       </nav>
-      <div class="header-actions"><a class="login" href="#">登录</a><button class="btn">免费开始</button></div>
+      <div class="header-actions"><a class="login" href="subpage.html?type=login">登录</a><a class="btn" href="subpage.html?type=start">免费开始</a></div>
     </header>
 
     <main>
@@ -196,7 +196,7 @@
           <div class="prompt">“我想让团队每周自动生成一份<br><b>销售复盘报告</b>，需要接入飞书。”</div>
           <div class="result"><div class="avatar">▦</div><div><strong>销售数据自动驾驶舱</strong><small>仪表盘搭建 · 3 天交付</small></div><div class="score">★ 4.9</div></div>
           <div class="result"><div class="avatar" style="background:linear-gradient(135deg,#59e7c4,#3d70ff)">◌</div><div><strong>企业知识库助手</strong><small>工作流配置 · 1 天上线</small></div><div class="score">★ 4.8</div></div>
-          <div class="card-action"><div class="price">¥ 1,999 <small>起</small></div><button class="btn secondary">查看方案 →</button></div>
+          <div class="card-action"><div class="price">¥ 1,999 <small>起</small></div><a class="btn secondary" href="subpage.html?type=solutions">查看方案 →</a></div>
         </div>
       </section>
 
@@ -214,14 +214,14 @@
       <section id="services">
         <div class="section-head"><div><h2>本周精选服务</h2><p aria-live="polite">经过真实项目验证，拿来就能用。</p></div><a class="more" href="#services">浏览更多服务 →</a></div>
         <div class="services">
-          <article class="service" data-category="内容生产 营销获客" data-keywords="短视频 脚本 成片 品牌 电商 内容"><div class="service-top"><div class="service-icon violet">▧</div><span class="tag">可立即交付</span></div><h3>AI 短视频内容工厂</h3><p>从选题、脚本到批量成片，适合品牌和电商团队搭建内容流水线。</p><div class="service-foot"><span class="meta">★ 4.9 · 已交付 128 次</span><button class="btn service-detail" type="button">查看详情</button></div></article>
-          <article class="service" data-category="办公提效" data-keywords="知识库 文档 飞书 办公 助手 工作流"><div class="service-top"><div class="service-icon aqua">◎</div><span class="tag">企业热门</span></div><h3>企业知识库助手</h3><p>连接内部文档和业务系统，让员工用一句话找到答案并执行任务。</p><div class="service-foot"><span class="meta">★ 4.8 · 已服务 76 家</span><button class="btn service-detail" type="button">查看详情</button></div></article>
-          <article class="service" data-category="数据分析 办公提效" data-keywords="销售 数据 报告 周报 预测 驾驶舱"><div class="service-top"><div class="service-icon orange">⌁</div><span class="tag">高复购</span></div><h3>销售数据自动驾驶舱</h3><p>自动整理销售数据，生成周报、预测和行动建议，减少重复汇报。</p><div class="service-foot"><span class="meta">★ 5.0 · 已节省 2,400 小时</span><button class="btn service-detail" type="button">查看详情</button></div></article>
+          <article class="service" data-category="内容生产 营销获客" data-keywords="短视频 脚本 成片 品牌 电商 内容"><div class="service-top"><div class="service-icon violet">▧</div><span class="tag">可立即交付</span></div><h3>AI 短视频内容工厂</h3><p>从选题、脚本到批量成片，适合品牌和电商团队搭建内容流水线。</p><div class="service-foot"><span class="meta">★ 4.9 · 已交付 128 次</span><a class="btn service-detail" href="subpage.html?type=video-factory">查看详情</a></div></article>
+          <article class="service" data-category="办公提效" data-keywords="知识库 文档 飞书 办公 助手 工作流"><div class="service-top"><div class="service-icon aqua">◎</div><span class="tag">企业热门</span></div><h3>企业知识库助手</h3><p>连接内部文档和业务系统，让员工用一句话找到答案并执行任务。</p><div class="service-foot"><span class="meta">★ 4.8 · 已服务 76 家</span><a class="btn service-detail" href="subpage.html?type=knowledge-assistant">查看详情</a></div></article>
+          <article class="service" data-category="数据分析 办公提效" data-keywords="销售 数据 报告 周报 预测 驾驶舱"><div class="service-top"><div class="service-icon orange">⌁</div><span class="tag">高复购</span></div><h3>销售数据自动驾驶舱</h3><p>自动整理销售数据，生成周报、预测和行动建议，减少重复汇报。</p><div class="service-foot"><span class="meta">★ 5.0 · 已节省 2,400 小时</span><a class="btn service-detail" href="subpage.html?type=sales-dashboard">查看详情</a></div></article>
         </div>
       </section>
 
       <section id="enterprise">
-        <div class="enterprise"><div><h2>企业级 AI，不止是买一个工具</h2><p>从需求梳理、方案选型到部署和持续运营，获得完整的 AI 落地服务。支持私有化部署、API 接入和按量计费。</p><div class="stats"><div class="stat"><strong>1,200+</strong><span>可采购 AI 服务</span></div><div class="stat"><strong>98%</strong><span>项目按期交付</span></div><div class="stat"><strong>7×12</strong><span>企业服务支持</span></div></div></div><div class="enterprise-right"><button class="btn consultant-btn" type="button">预约企业顾问</button><button class="btn secondary solution-btn" type="button">查看解决方案</button></div></div>
+        <div class="enterprise"><div><h2>企业级 AI，不止是买一个工具</h2><p>从需求梳理、方案选型到部署和持续运营，获得完整的 AI 落地服务。支持私有化部署、API 接入和按量计费。</p><div class="stats"><div class="stat"><strong>1,200+</strong><span>可采购 AI 服务</span></div><div class="stat"><strong>98%</strong><span>项目按期交付</span></div><div class="stat"><strong>7×12</strong><span>企业服务支持</span></div></div></div><div class="enterprise-right"><a class="btn consultant-btn" href="subpage.html?type=enterprise#consult">预约企业顾问</a><a class="btn secondary solution-btn" href="subpage.html?type=solutions">查看解决方案</a></div></div>
       </section>
     </main>
 
@@ -307,30 +307,13 @@
         setActiveChip('');
         runSearch('');
       });
-      document.querySelector('.header-actions .btn').addEventListener('click', () => {
-        input.focus();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
       const closeModal = () => modal.classList.remove('is-open');
       document.querySelector('.modal-close').addEventListener('click', closeModal);
       modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
-      document.querySelectorAll('.service-detail').forEach((button) => button.addEventListener('click', () => {
-        const card = button.closest('.service');
-        const title = card.querySelector('h3').textContent;
-        modalTitle.textContent = title;
-        modalCopy.textContent = card.querySelector('p').textContent + ' 我们会根据你的业务规模和交付目标，匹配合适的服务商与实施方案。';
-        modal.classList.add('is-open');
-      }));
       document.querySelector('.modal-cta').addEventListener('click', () => {
         closeModal();
         showToast('需求已记录，服务顾问会尽快与你联系');
-      });
-      document.querySelector('.consultant-btn').addEventListener('click', () => showToast('企业顾问预约已提交，我们会在 1 个工作日内联系你'));
-      document.querySelector('.solution-btn').addEventListener('click', () => {
-        input.value = '企业解决方案';
-        runSearch('企业');
       });
     })();
   </script>
